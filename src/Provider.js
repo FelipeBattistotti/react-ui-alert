@@ -63,7 +63,7 @@ const Provider = forwardRef(({
 
   const show = useCallback(
     (message = '', options = {}) => {
-      const id = Math.random().toString(36).substr(2, 9)
+      const id = crypto.randomUUID()
 
       const alertOptions = {
         position: options.position || position,
@@ -90,7 +90,7 @@ const Provider = forwardRef(({
         timersId.current.push(timerId)
       }
 
-      setAlerts(state => state.concat(alert))
+      setAlerts(state => [...state, alert])
       if (alert.options.onOpen) alert.options.onOpen()
 
       return alert
@@ -139,7 +139,7 @@ const Provider = forwardRef(({
   const alertsByPosition = groupBy(alerts, alert => alert.options.position)
 
   return (
-    <Context.Provider value={alertContext}>
+    <Context.Provider value={alertContext.current}>
       {children}
       {root.current &&
         createPortal(
@@ -155,16 +155,14 @@ const Provider = forwardRef(({
                   component={Wrapper}
                   {...props}
                 >
-                  {alertsByPosition[position]
-                    ? alertsByPosition[position].map(alert => (
-                        <Transition type={transition} key={alert.id}>
-                          <AlertComponent
-                            style={{ margin: offset, pointerEvents: 'all' }}
-                            {...alert}
-                          />
-                        </Transition>
-                      ))
-                    : null}
+                  {alertsByPosition[position]?.map(alert => (
+                    <Transition type={transition} key={alert.id}>
+                      <AlertComponent
+                        style={{ margin: offset, pointerEvents: 'all' }}
+                        {...alert}
+                      />
+                    </Transition>
+                  ))}
                 </TransitionGroup>
               )
             })}

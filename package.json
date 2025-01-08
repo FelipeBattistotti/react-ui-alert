@@ -1,7 +1,7 @@
 {
   "name": "react-ui-alert",
   "description": "A simple react alert component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Felipe Battistotti <felipe.battistotti@gmail.com>",
   "main": "dist/cjs/react-ui-alert.js",
   "module": "dist/esm/react-ui-alert.js",

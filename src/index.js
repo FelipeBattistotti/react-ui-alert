@@ -1,6 +1,5 @@
-import Provider from './Provider'
-import useAlert from './useAlert'
-import withAlert from './withAlert'
-import { positions, types, transitions } from './options'
+export { default as Provider } from './Provider'
+export { default as useAlert } from './useAlert'
+export { default as withAlert } from './withAlert'
 
-export { Provider, useAlert, withAlert, positions, types, transitions }
+export * from './options'

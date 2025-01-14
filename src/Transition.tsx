@@ -33,7 +33,7 @@ interface TransitionProps {
   type?: TransitionType
 }
 
-const Transition = ({ children, type = transitions.FADE, ...props }: TransitionProps): React.ReactElement => {
+const Transition = ({ children, type = transitions.SCALE, ...props }: TransitionProps): React.ReactElement => {
   const ref = useRef<HTMLDivElement>(null)
 
   return (

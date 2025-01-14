@@ -56,10 +56,10 @@ interface ProviderRef {
 const Provider = forwardRef<ProviderRef, ProviderProps>(({
   children,
   offset = '10px',
-  position = positions.TOP_CENTER,
+  position = positions.BOTTOM_CENTER,
   timeout = 0,
   type = types.INFO,
-  transition = transitions.FADE,
+  transition = transitions.SCALE,
   containerStyle = { zIndex: 100 },
   template: AlertComponent,
   context: Context = DefaultContext,

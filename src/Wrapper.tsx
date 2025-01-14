@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react'
-import { positions } from './options'
+import { positions, Position } from './options'
 
-export const getStyles = position => {
-  const initialStyles = {
+export const getStyles = (position: Position) => {
+  const initialStyles: React.CSSProperties = {
     left: 0,
     position: 'fixed',
     display: 'flex',
@@ -49,7 +49,6 @@ export const getStyles = position => {
         top: '50%',
         alignItems: 'flex-end'
       }
-
     case positions.BOTTOM_LEFT:
       return {
         ...initialStyles,
@@ -67,14 +66,21 @@ export const getStyles = position => {
         bottom: 0,
         alignItems: 'flex-end'
       }
-
     default: {
       return initialStyles
     }
   }
 }
 
-const Wrapper = ({
+interface WrapperProps {
+  children: React.ReactNode
+  options: {
+    position: Position
+    containerStyle?: React.CSSProperties
+  }
+}
+
+const Wrapper: React.FC<WrapperProps> = ({
   children,
   options: { position, containerStyle },
   ...props
@@ -82,7 +88,7 @@ const Wrapper = ({
   const styles = useMemo(() => getStyles(position), [position])
 
   return (
-    children.length > 0 && (
+    React.Children.count(children) > 0 && (
       <div style={{ ...styles, ...containerStyle }} {...props}>
         {children}
       </div>

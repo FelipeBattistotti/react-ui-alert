@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Transition as AlertTransition } from 'react-transition-group'
-import { transitions } from './options'
+import { transitions, TransitionType } from './options'
 
 const duration = 250
 
@@ -28,8 +28,13 @@ const transitionStyles = {
   }
 }
 
-const Transtion = ({ children, type, ...props }) => {
-  const ref = useRef(null)
+interface TransitionProps {
+  children: React.ReactNode
+  type?: TransitionType
+}
+
+const Transition = ({ children, type = transitions.FADE, ...props }: TransitionProps): React.ReactElement => {
+  const ref = useRef<HTMLDivElement>(null)
 
   return (
     <AlertTransition nodeRef={ref} {...props} timeout={duration}>
@@ -38,7 +43,7 @@ const Transtion = ({ children, type, ...props }) => {
           ref={ref}
           style={{
             ...defaultStyle[type],
-            ...transitionStyles[type][state]
+            ...transitionStyles[type][state as keyof typeof transitionStyles[typeof type]]
           }}
         >
           {children}
@@ -48,4 +53,4 @@ const Transtion = ({ children, type, ...props }) => {
   )
 }
 
-export default Transtion
+export default Transition

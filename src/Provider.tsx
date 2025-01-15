@@ -41,7 +41,6 @@ interface ProviderProps {
   containerStyle?: React.CSSProperties
   template: React.ComponentType<any>
   context?: React.Context<any>
-  useFixedPosition?: boolean
 }
 
 interface ProviderRef {
@@ -64,7 +63,6 @@ const Provider = forwardRef<ProviderRef, ProviderProps>(({
   containerStyle = { zIndex: 100 },
   template: AlertComponent,
   context: Context = DefaultContext,
-  useFixedPosition = true,
   ...props
 }, ref) => {
   const root = useRef<HTMLDivElement | null>(null)
@@ -195,24 +193,9 @@ const Provider = forwardRef<ProviderRef, ProviderProps>(({
                   {alertsByPosition[positionKey]
                     ? alertsByPosition[positionKey].map(alert => (
                         <Transition key={alert.id} type={transition}>
-                          <Wrapper 
-                            options={{ 
-                              position: positionKey, 
-                              containerStyle: {
-                                ...containerStyle,
-                                // Ajuste o espaçamento inferior para posições na parte inferior
-                                ...(positionKey.includes('bottom') ? { paddingBottom: `calc(${offset} + env(safe-area-inset-bottom, 0px))` } : {}),
-                              },
-                              useFixedPosition
-                            }} 
-                            {...props}
-                          >
+                          <Wrapper options={{ position: positionKey, containerStyle }} {...props}>
                             <AlertComponent
-                              style={{ 
-                                pointerEvents: 'all',
-                                maxWidth: 'calc(100vw - 20px)', // Garante que o alerta não ultrapasse a largura da tela
-                                wordBreak: 'break-word' // Permite que palavras longas quebrem
-                              }}
+                              style={{ margin: offset, pointerEvents: 'all' }}
                               {...alert}
                             />
                           </Wrapper>

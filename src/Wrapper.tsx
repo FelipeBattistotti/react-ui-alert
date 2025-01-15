@@ -1,40 +1,74 @@
 import React, { useMemo } from 'react'
 import { positions, Position } from './options'
 
-export const getStyles = (
-  position: Position,
-  useFixedPosition: boolean = true,
-  customStyle: React.CSSProperties = {}
-): React.CSSProperties => {
+export const getStyles = (position: Position) => {
   const initialStyles: React.CSSProperties = {
-    position: useFixedPosition ? 'fixed' : 'absolute',
+    left: 0,
+    position: 'fixed',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    pointerEvents: 'none',
-    maxWidth: '100%',
-    padding: '10px',
-    boxSizing: 'border-box',
-    width: '100%'
+    width: '100%',
+    pointerEvents: 'none'
   }
 
-  const positionStyles: Record<Position, React.CSSProperties> = {
-    [positions.TOP_LEFT]: { top: '10px', left: '10px', alignItems: 'flex-start' },
-    [positions.TOP_CENTER]: { top: '10px', left: '50%', transform: 'translateX(-50%)' },
-    [positions.TOP_RIGHT]: { top: '10px', right: '10px', alignItems: 'flex-end' },
-    [positions.MIDDLE_LEFT]: { top: '50%', left: '10px', transform: 'translateY(-50%)', alignItems: 'flex-start' },
-    [positions.MIDDLE]: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' },
-    [positions.MIDDLE_RIGHT]: { top: '50%', right: '10px', transform: 'translateY(-50%)', alignItems: 'flex-end' },
-    [positions.BOTTOM_LEFT]: { bottom: '10px', left: '10px', alignItems: 'flex-start' },
-    [positions.BOTTOM_CENTER]: { bottom: '10px', left: '50%', transform: 'translateX(-50%)' },
-    [positions.BOTTOM_RIGHT]: { bottom: '10px', right: '10px', alignItems: 'flex-end' }
-  }
-
-  return {
-    ...initialStyles,
-    ...positionStyles[position],
-    ...customStyle
+  switch (position) {
+    case positions.TOP_LEFT:
+      return {
+        ...initialStyles,
+        top: 0,
+        alignItems: 'flex-start'
+      }
+    case positions.TOP_CENTER:
+      return {
+        ...initialStyles,
+        top: 0
+      }
+    case positions.TOP_RIGHT:
+      return {
+        ...initialStyles,
+        top: 0,
+        alignItems: 'flex-end'
+      }
+    case positions.MIDDLE_LEFT:
+      return {
+        ...initialStyles,
+        top: '50%',
+        alignItems: 'flex-start'
+      }
+    case positions.MIDDLE: {
+      return {
+        ...initialStyles,
+        top: '50%'
+      }
+    }
+    case positions.MIDDLE_RIGHT:
+      return {
+        ...initialStyles,
+        top: '50%',
+        alignItems: 'flex-end'
+      }
+    case positions.BOTTOM_LEFT:
+      return {
+        ...initialStyles,
+        bottom: 0,
+        alignItems: 'flex-start'
+      }
+    case positions.BOTTOM_CENTER:
+      return {
+        ...initialStyles,
+        bottom: 0
+      }
+    case positions.BOTTOM_RIGHT:
+      return {
+        ...initialStyles,
+        bottom: 0,
+        alignItems: 'flex-end'
+      }
+    default: {
+      return initialStyles
+    }
   }
 }
 
@@ -43,23 +77,19 @@ interface WrapperProps {
   options: {
     position: Position
     containerStyle?: React.CSSProperties
-    useFixedPosition?: boolean
   }
 }
 
 const Wrapper: React.FC<WrapperProps> = ({
   children,
-  options: { position, containerStyle = {}, useFixedPosition = true },
+  options: { position, containerStyle },
   ...props
 }) => {
-  const styles = useMemo(
-    () => getStyles(position, useFixedPosition, containerStyle),
-    [position, useFixedPosition, containerStyle]
-  )
+  const styles = useMemo(() => getStyles(position), [position])
 
   return (
     React.Children.count(children) > 0 && (
-      <div style={styles} {...props}>
+      <div style={{ ...styles, ...containerStyle }} {...props}>
         {children}
       </div>
     )

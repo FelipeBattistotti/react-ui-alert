@@ -41,7 +41,7 @@ interface ProviderProps {
   containerStyle?: React.CSSProperties
   template: React.ComponentType<any>
   context?: React.Context<any>
-  bottomOffset?: string
+  useFixedPosition?: boolean
 }
 
 interface ProviderRef {
@@ -64,7 +64,7 @@ const Provider = forwardRef<ProviderRef, ProviderProps>(({
   containerStyle = { zIndex: 100 },
   template: AlertComponent,
   context: Context = DefaultContext,
-  bottomOffset = '10px',
+  useFixedPosition = true,
   ...props
 }, ref) => {
   const root = useRef<HTMLDivElement | null>(null)
@@ -198,13 +198,16 @@ const Provider = forwardRef<ProviderRef, ProviderProps>(({
                           <Wrapper 
                             options={{ 
                               position: positionKey, 
-                              containerStyle,
-                              bottomOffset: positionKey.includes('bottom') ? bottomOffset : undefined
+                              containerStyle: {
+                                ...containerStyle,
+                                margin: offset
+                              },
+                              useFixedPosition
                             }} 
                             {...props}
                           >
                             <AlertComponent
-                              style={{ margin: offset, pointerEvents: 'all' }}
+                              style={{ pointerEvents: 'all' }}
                               {...alert}
                             />
                           </Wrapper>

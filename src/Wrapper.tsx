@@ -15,19 +15,20 @@ export const getStyles = (
     pointerEvents: 'none',
     maxWidth: '100%',
     padding: '10px',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    width: '100%'
   }
 
   const positionStyles: Record<Position, React.CSSProperties> = {
-    [positions.TOP_LEFT]: { top: 0, left: 0, alignItems: 'flex-start' },
-    [positions.TOP_CENTER]: { top: 0, left: '50%', transform: 'translateX(-50%)' },
-    [positions.TOP_RIGHT]: { top: 0, right: 0, alignItems: 'flex-end' },
-    [positions.MIDDLE_LEFT]: { top: '50%', left: 0, transform: 'translateY(-50%)', alignItems: 'flex-start' },
+    [positions.TOP_LEFT]: { top: '10px', left: '10px', alignItems: 'flex-start' },
+    [positions.TOP_CENTER]: { top: '10px', left: '50%', transform: 'translateX(-50%)' },
+    [positions.TOP_RIGHT]: { top: '10px', right: '10px', alignItems: 'flex-end' },
+    [positions.MIDDLE_LEFT]: { top: '50%', left: '10px', transform: 'translateY(-50%)', alignItems: 'flex-start' },
     [positions.MIDDLE]: { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' },
-    [positions.MIDDLE_RIGHT]: { top: '50%', right: 0, transform: 'translateY(-50%)', alignItems: 'flex-end' },
-    [positions.BOTTOM_LEFT]: { bottom: 0, left: 0, alignItems: 'flex-start' },
-    [positions.BOTTOM_CENTER]: { bottom: 0, left: '50%', transform: 'translateX(-50%)' },
-    [positions.BOTTOM_RIGHT]: { bottom: 0, right: 0, alignItems: 'flex-end' }
+    [positions.MIDDLE_RIGHT]: { top: '50%', right: '10px', transform: 'translateY(-50%)', alignItems: 'flex-end' },
+    [positions.BOTTOM_LEFT]: { bottom: '10px', left: '10px', alignItems: 'flex-start' },
+    [positions.BOTTOM_CENTER]: { bottom: '10px', left: '50%', transform: 'translateX(-50%)' },
+    [positions.BOTTOM_RIGHT]: { bottom: '10px', right: '10px', alignItems: 'flex-end' }
   }
 
   return {

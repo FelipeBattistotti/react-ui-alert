@@ -200,14 +200,19 @@ const Provider = forwardRef<ProviderRef, ProviderProps>(({
                               position: positionKey, 
                               containerStyle: {
                                 ...containerStyle,
-                                margin: offset
+                                // Ajuste o espaçamento inferior para posições na parte inferior
+                                ...(positionKey.includes('bottom') ? { paddingBottom: `calc(${offset} + env(safe-area-inset-bottom, 0px))` } : {}),
                               },
                               useFixedPosition
                             }} 
                             {...props}
                           >
                             <AlertComponent
-                              style={{ pointerEvents: 'all' }}
+                              style={{ 
+                                pointerEvents: 'all',
+                                maxWidth: 'calc(100vw - 20px)', // Garante que o alerta não ultrapasse a largura da tela
+                                wordBreak: 'break-word' // Permite que palavras longas quebrem
+                              }}
                               {...alert}
                             />
                           </Wrapper>

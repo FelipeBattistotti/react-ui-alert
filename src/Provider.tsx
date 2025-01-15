@@ -13,11 +13,11 @@ import { createPortal } from 'react-dom'
 import DefaultContext from './Context'
 import Wrapper from './Wrapper'
 import Transition from './Transition'
-import { positions, transitions, types, AlertPosition, AlertType, AlertTransitionType } from './options'
+import { positions, transitions, types, Position, AlertType, TransitionType } from './options'
 import { groupBy } from './helpers'
 
 interface AlertOptions {
-  position?: AlertPosition
+  position?: Position
   timeout?: number
   type?: AlertType
   onOpen?: () => void
@@ -34,10 +34,10 @@ interface Alert {
 interface ProviderProps {
   children: ReactNode
   offset?: string
-  position?: AlertPosition
+  position?: Position
   timeout?: number
   type?: AlertType
-  transition?: AlertTransitionType
+  transition?: TransitionType
   containerStyle?: React.CSSProperties
   template: React.ComponentType<any>
   context?: React.Context<any>

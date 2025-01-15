@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
-import { positions, AlertPosition } from './options'
+import { positions, Position } from './options'
 
-export const getStyles = (position: AlertPosition) => {
+export const getStyles = (position: Position) => {
   const initialStyles: React.CSSProperties = {
     left: 0,
     position: 'fixed',
@@ -75,7 +75,7 @@ export const getStyles = (position: AlertPosition) => {
 interface WrapperProps {
   children: React.ReactNode
   options: {
-    position: AlertPosition
+    position: Position
     containerStyle?: React.CSSProperties
   }
 }

@@ -4,7 +4,6 @@ import { positions, Position } from './options'
 export const getStyles = (position: Position, bottomOffset: string = '10px') => {
   const initialStyles: React.CSSProperties = {
     left: 0,
-    position: 'fixed',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

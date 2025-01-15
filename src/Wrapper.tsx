@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { positions, Position } from './options'
 
-export const getStyles = (position: Position) => {
+export const getStyles = (position: Position, bottomOffset: string = '10px') => {
   const initialStyles: React.CSSProperties = {
     left: 0,
     position: 'fixed',
@@ -52,18 +52,18 @@ export const getStyles = (position: Position) => {
     case positions.BOTTOM_LEFT:
       return {
         ...initialStyles,
-        bottom: 0,
+        bottom: bottomOffset,
         alignItems: 'flex-start'
       }
     case positions.BOTTOM_CENTER:
       return {
         ...initialStyles,
-        bottom: 0
+        bottom: bottomOffset
       }
     case positions.BOTTOM_RIGHT:
       return {
         ...initialStyles,
-        bottom: 0,
+        bottom: bottomOffset,
         alignItems: 'flex-end'
       }
     default: {
@@ -77,15 +77,16 @@ interface WrapperProps {
   options: {
     position: Position
     containerStyle?: React.CSSProperties
+    bottomOffset?: string
   }
 }
 
 const Wrapper: React.FC<WrapperProps> = ({
   children,
-  options: { position, containerStyle },
+  options: { position, containerStyle, bottomOffset },
   ...props
 }) => {
-  const styles = useMemo(() => getStyles(position), [position])
+  const styles = useMemo(() => getStyles(position, bottomOffset), [position, bottomOffset])
 
   return (
     React.Children.count(children) > 0 && (

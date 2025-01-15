@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Transition as AlertTransition } from 'react-transition-group'
-import { transitions, TransitionType } from './options'
+import { transitions, AlertTransitionType } from './options'
 
 const duration = 250
 
@@ -30,7 +30,7 @@ const transitionStyles = {
 
 interface TransitionProps {
   children: React.ReactNode
-  type?: TransitionType
+  type?: AlertTransitionType
 }
 
 const Transition = ({ children, type = transitions.SCALE, ...props }: TransitionProps): React.ReactElement => {

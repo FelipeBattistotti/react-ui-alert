@@ -1,6 +1,6 @@
 import Provider from './Provider'
 import useAlert from './useAlert'
 import withAlert from './withAlert'
-import { positions, types, transitions } from './options'
+import { AlertPosition, AlertType, AlertTransitionType } from './options'
 
-export { Provider, useAlert, withAlert, positions, types, transitions }
+export { Provider, useAlert, withAlert, AlertPosition, AlertType, AlertTransitionType }

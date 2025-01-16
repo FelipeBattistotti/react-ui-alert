@@ -55,7 +55,7 @@ interface ProviderRef {
 
 const Provider = forwardRef<ProviderRef, ProviderProps>(({
   children,
-  offset = '10px',
+  offset,
   position = positions.BOTTOM_CENTER,
   timeout = 0,
   type = types.INFO,

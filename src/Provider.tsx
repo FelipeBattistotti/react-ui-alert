@@ -55,7 +55,7 @@ interface ProviderRef {
 
 const Provider = forwardRef<ProviderRef, ProviderProps>(({
   children,
-  offset,
+  offset = "2rem",
   position = positions.BOTTOM_CENTER,
   timeout = 0,
   type = types.INFO,
@@ -183,25 +183,22 @@ const Provider = forwardRef<ProviderRef, ProviderProps>(({
           <Fragment>
             {Object.keys(positions).map(key => {
               const positionKey = positions[key as keyof typeof positions]
-
               return (
                 <TransitionGroup
                   appear
                   key={positionKey}
-                  childFactory={child => React.cloneElement(child, { type: transition })}
+                  options={{ position, containerStyle }}
+                  component={Wrapper}
+                  {...props}
                 >
-                  {alertsByPosition[positionKey]
-                    ? alertsByPosition[positionKey].map(alert => (
-                        <Transition key={alert.id} type={transition}>
-                          <Wrapper options={{ position: positionKey, containerStyle }} {...props}>
-                            <AlertComponent
-                              style={{ margin: offset, pointerEvents: 'all' }}
-                              {...alert}
-                            />
-                          </Wrapper>
-                        </Transition>
-                      ))
-                    : null}
+                  {(alertsByPosition[positionKey] || []).map(alert => (
+                    <Transition key={alert.id} type={transition}>
+                      <AlertComponent
+                        style={{ margin: offset, pointerEvents: 'all' }}
+                        {...alert}
+                      />
+                    </Transition>
+                  ))}
                 </TransitionGroup>
               )
             })}

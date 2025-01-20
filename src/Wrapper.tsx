@@ -1,12 +1,10 @@
 import React, { useMemo } from 'react'
 import { positions, Position } from './options'
 
-const mobile = () => typeof window !== 'undefined' && window?.innerWidth <= 640
-
 export const getStyles = (position: Position) => {
   const initialStyles: React.CSSProperties = {
     left: 0,
-    position: mobile() ? 'fixed' : undefined,
+    position: 'fixed',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -54,18 +52,18 @@ export const getStyles = (position: Position) => {
     case positions.BOTTOM_LEFT:
       return {
         ...initialStyles,
-        bottom: mobile() ? 0 : undefined,
+        bottom: 0,
         alignItems: 'flex-start'
       }
     case positions.BOTTOM_CENTER:
       return {
         ...initialStyles,
-        bottom: mobile() ? 0 : undefined
+        bottom: 0
       }
     case positions.BOTTOM_RIGHT:
       return {
         ...initialStyles,
-        bottom: mobile() ? 0 : undefined,
+        bottom: 0,
         alignItems: 'flex-end'
       }
     default: {
